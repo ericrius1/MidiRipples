@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #08080f;
+  color: #c8cdd8;
+  min-height: 100vh;
+  overflow: hidden;
+  -webkit-app-region: drag;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 28px 24px 20px;
+  gap: 24px;
+  -webkit-app-region: no-drag;
+}
+
+/* Title */
+#title-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.subtitle {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* Controls area */
+#controls {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Slider container */
+.slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-label span:first-child {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.slider-value {
+  font-size: 10px;
+  font-weight: 300;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: rgba(255, 255, 255, 0.2);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Custom slider track */
+.slider-track {
+  position: relative;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: visible;
+  touch-action: none;
+}
+
+.slider-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 2px;
+  pointer-events: none;
+  transition: none;
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.slider-track:hover .slider-thumb {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Slider accent colors */
+.slider-row[data-param="speed"] .slider-fill { background: rgba(78, 205, 196, 0.6); }
+.slider-row[data-param="speed"] .slider-thumb { background: #4ecdc4; box-shadow: 0 0 8px rgba(78, 205, 196, 0.3); }
+
+.slider-row[data-param="width"] .slider-fill { background: rgba(124, 92, 191, 0.6); }
+.slider-row[data-param="width"] .slider-thumb { background: #7c5cbf; box-shadow: 0 0 8px rgba(124, 92, 191, 0.3); }
+
+.slider-row[data-param="color"] .slider-fill { background: rgba(233, 74, 139, 0.6); }
+.slider-row[data-param="color"] .slider-thumb { background: #e94a8b; box-shadow: 0 0 8px rgba(233, 74, 139, 0.3); }
+
+.slider-row[data-param="size"] .slider-fill { background: rgba(255, 179, 71, 0.6); }
+.slider-row[data-param="size"] .slider-thumb { background: #ffb347; box-shadow: 0 0 8px rgba(255, 179, 71, 0.3); }
+
+.slider-track:hover .slider-thumb {
+  box-shadow: 0 0 14px currentColor;
+}
+
+/* Preset buttons */
+#preset-bar {
+  display: flex;
+  gap: 6px;
+}
+
+.preset-btn {
+  flex: 1;
+  padding: 7px 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.preset-btn.active {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Volume bar */
+#volume-bar {
+  padding-top: 2px;
+}
+
+#volume {
+  width: 100%;
+  height: 2px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1px;
+  cursor: pointer;
+  outline: none;
+}
+
+#volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: grab;
+  transition: background 0.15s ease;
+}
+
+#volume::-webkit-slider-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+#volume::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
